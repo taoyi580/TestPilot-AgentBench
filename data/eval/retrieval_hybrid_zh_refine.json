@@ -1,0 +1,30 @@
+{
+  "dataset": "RGB zh_refine",
+  "source": "https://github.com/chen700564/RGB",
+  "license": "CC BY-NC-SA 4.0",
+  "retriever": "BM25 与 TF-IDF 融合后重排序，文档级，语料为该分片全部 positive+negative 去重",
+  "mode": "hybrid",
+  "n_queries": 300,
+  "n_docs": 7337,
+  "hit": {
+    "1": {
+      "count": 204,
+      "rate": 0.68
+    },
+    "3": {
+      "count": 273,
+      "rate": 0.91
+    },
+    "5": {
+      "count": 281,
+      "rate": 0.9367
+    },
+    "10": {
+      "count": 292,
+      "rate": 0.9733
+    }
+  },
+  "mrr_at_10": 0.7949,
+  "p50_latency_ms": 46.06,
+  "p95_latency_ms": 62.57
+}

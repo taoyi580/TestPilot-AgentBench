@@ -5,4 +5,8 @@ openai
 jieba
 rank_bm25
 numpy
+langgraph
+langchain-openai
+langchain-core
+
 

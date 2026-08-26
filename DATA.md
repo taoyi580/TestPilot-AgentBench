@@ -17,10 +17,18 @@
 | `data/rgb/zh_fact.json` | 100 | 含错误文档时的稳健性 |
 | 合计 | 500 | 评测集 |
 
-检索评测结果见 `data/eval/retrieval_zh_refine.json`（`python eval_retrieval.py` 可复算）：
+检索评测结果见 `data/eval/`（可用脚本复算）：
 
 - Hit@1 / Hit@5：前 1 / 5 条是否命中该题的 positive 文档
 - P95：检索耗时
-- 无证据场景：只提供 negative 文档，生成侧应回答不知道
+- 无证据场景：只提供 negative 文档，生成侧应回答不知道（`python eval_reject.py`）
+- 五工具首轮选择：自建 200 题（`python eval_tools.py`），不是官方 BFCL
+
+本仓库最近一次实跑（RGB `zh_refine`，7337 篇去重文档）：
+
+- BM25：Hit@1 67.0%，Hit@5 94.7%，P95 40ms
+- 混合检索：Hit@1 68.0%，Hit@5 93.7%，P95 63ms
+- 无证据拒答：84/100
+- 五工具首轮选对：190/200（自建题，不是官方 BFCL）
 
 `data/kb/` 为补充的本地研发笔记，不计入上述检索评测。

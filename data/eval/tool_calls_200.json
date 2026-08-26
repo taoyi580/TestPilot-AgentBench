@@ -1,0 +1,1408 @@
+{
+  "dataset": "self-built 5-tool first-call routing, not official BFCL",
+  "n": 200,
+  "correct": 190,
+  "rate": 0.95,
+  "records": [
+    {
+      "id": "search-0",
+      "query": "印控克什米尔地区寺庙踩踏事故死亡人数",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-1",
+      "query": "RCEP具体包括哪些国家",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-2",
+      "query": "第七届香港立法会议员宣誓仪式的时间",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-3",
+      "query": "首趟RCEP班列的起点？",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-4",
+      "query": "香港第七届立法会选举有多少个议席？",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-5",
+      "query": "2021年香港GDP增长了多少？",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-6",
+      "query": "2021年北京大兴机场年旅客吞吐量",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-7",
+      "query": "2022年春节档首日票房冠军",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-8",
+      "query": "2022春运开始时间",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-9",
+      "query": "2022年春运首日火车票什么时候开售",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-10",
+      "query": "2022年特斯拉交付量",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-11",
+      "query": "2023年世界人工智能大会在哪举办",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-12",
+      "query": "印度第三艘“歼敌者”级核潜艇下水的时间",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-13",
+      "query": "美国2021年GDP增长多少",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-14",
+      "query": "2021年中国城镇新增就业了多少人",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-15",
+      "query": "黑石集团预测2022年美联储将加息几次",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-16",
+      "query": "2021年中国电影市场总票房是多少？",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-17",
+      "query": "《李茂扮太子》是什么类型的电影",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-18",
+      "query": "2021赛季中超冠军",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-19",
+      "query": "2022年1月5日全国新增确诊病例数？",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-20",
+      "query": "我国2021年人口出生率",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-21",
+      "query": "塔里木油田2021年的油气产量是多少？",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-22",
+      "query": "2022年冬奥会开幕式总导演是谁",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-23",
+      "query": "中国第三艘航母名字",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-24",
+      "query": "河南2021年的粮食总产量是多少？",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-25",
+      "query": "苹果M1芯片首席设计师去了哪家公司",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-26",
+      "query": "长安汽车2021年销量同比增长多少？",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-27",
+      "query": "10·29索马里首都汽车炸弹爆炸死亡人数",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-28",
+      "query": "2021年宝马全球销量？",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-29",
+      "query": "2021年中国外贸进出口规模是多少美元",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-30",
+      "query": "2021年中国经济增长了多少？",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-31",
+      "query": "电影《四海》的导演是谁",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-32",
+      "query": "《超越》讲述的是什么内容",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-33",
+      "query": "2022年英特尔全年营收",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-34",
+      "query": "《踏冰逐梦》的主演是谁",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-35",
+      "query": "微软花了多少钱收购动视暴雪",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-36",
+      "query": "北京2022冬奥会高校志愿者有多少人",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-37",
+      "query": "2022年澳网男单冠军",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-38",
+      "query": "北京冬奥会官方电影的主创团队都有谁？",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-39",
+      "query": "《我们的冬奥》的上映时间？",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-40",
+      "query": "北京冬奥会澳大利亚运动员数量",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-41",
+      "query": "北京冬奥会开幕日期是什么时候",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-42",
+      "query": "2023年春节档首日票房冠军",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-43",
+      "query": "沙特参加冬奥会的项目是什么",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-44",
+      "query": "谁是北京冬奥会第一棒火炬手",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-45",
+      "query": "Wordle游戏是什么类型的游戏？",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-46",
+      "query": "2022年苹果春季发布会的新手机",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-47",
+      "query": "2022春节档票房冠军是哪部电影",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-48",
+      "query": "2022年春节档的总票房是多少",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-49",
+      "query": "北京冬奥会吉祥物叫什么",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-50",
+      "query": "北京冬奥会男子1500米速度滑冰比赛中谁获得了金牌？",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-51",
+      "query": "北京2022年冬奥会口号是什么",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-52",
+      "query": "北京冬奥会男子500米速度滑冰金牌",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-53",
+      "query": "《人世间》的编剧是谁",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-54",
+      "query": "花样滑冰女子单人滑比赛金牌得主是谁？",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-55",
+      "query": "张家口赛区共产生了几块金牌",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-56",
+      "query": "2021年全国粮食产量是多少？",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-57",
+      "query": "海底捞的新任首席执行官是谁？",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-58",
+      "query": "2021年我国工业增加值增长了多少？",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-59",
+      "query": "北京冬残奥会吉祥物是谁",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-60",
+      "query": "B站2021财年总营收是多少？",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-61",
+      "query": "谁是北京冬残奥会中国体育代表团旗手",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-62",
+      "query": "全国政协十三届五次会议闭幕时间",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-63",
+      "query": "iPhone SE 3的起售价是多少？",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-64",
+      "query": "2021年我国常住人口城镇化率达到了多少？",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-65",
+      "query": "邓伦逃税了多少钱",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-66",
+      "query": "梁冠华在《相逢时节》中演的谁",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-67",
+      "query": "坠毁的MU5735航班上有多少人",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-68",
+      "query": "MU5735航班坠毁地点在哪里",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-69",
+      "query": "2022年考研报名人数是多少",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-70",
+      "query": "《心居》的主演有哪些",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-71",
+      "query": "神舟十三号飞船的成员有哪些",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-72",
+      "query": "卡塔尔世界杯德国队在哪个组",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-73",
+      "query": "谁赢得了2022年塞尔维亚总统选举？",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-74",
+      "query": "2022清明档票房是多少",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-75",
+      "query": "2021年东吴证券的净利润是多少？",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-76",
+      "query": "北京冬奥会双人滑金牌得主是谁？",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-77",
+      "query": "上海2021年的GDP是多少",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-78",
+      "query": "2022年一季度中国经济增长率是多少",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "search-79",
+      "query": "2021-2022赛季欧冠冠军",
+      "expect": "search_docs",
+      "got": "search_docs",
+      "ok": true
+    },
+    {
+      "id": "similar-0",
+      "query": "线上出现会话串话，帮我找相似故障",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-1",
+      "query": "停止按钮失效还在后台写内容，有没有同类问题",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-2",
+      "query": "工具调用失败该怎么处理，查相似记录",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-3",
+      "query": "Cron 表达式不合法会怎样，找相关故障说明",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-4",
+      "query": "流式输出中断过，有没有类似案例",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-5",
+      "query": "多 Agent 派发后父任务没续上，查相似问题",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-6",
+      "query": "对话上下文串到别人会话，检索同类故障",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-7",
+      "query": "超时后任务还在跑，帮我找相似故障记录",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-8",
+      "query": "线上出现会话串话，帮我找相似故障",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-9",
+      "query": "停止按钮失效还在后台写内容，有没有同类问题",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-10",
+      "query": "工具调用失败该怎么处理，查相似记录",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-11",
+      "query": "Cron 表达式不合法会怎样，找相关故障说明",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-12",
+      "query": "流式输出中断过，有没有类似案例",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-13",
+      "query": "多 Agent 派发后父任务没续上，查相似问题",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-14",
+      "query": "对话上下文串到别人会话，检索同类故障",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-15",
+      "query": "超时后任务还在跑，帮我找相似故障记录",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-16",
+      "query": "线上出现会话串话，帮我找相似故障",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-17",
+      "query": "停止按钮失效还在后台写内容，有没有同类问题",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-18",
+      "query": "工具调用失败该怎么处理，查相似记录",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-19",
+      "query": "Cron 表达式不合法会怎样，找相关故障说明",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-20",
+      "query": "流式输出中断过，有没有类似案例",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-21",
+      "query": "多 Agent 派发后父任务没续上，查相似问题",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-22",
+      "query": "对话上下文串到别人会话，检索同类故障",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-23",
+      "query": "超时后任务还在跑，帮我找相似故障记录",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-24",
+      "query": "线上出现会话串话，帮我找相似故障",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-25",
+      "query": "停止按钮失效还在后台写内容，有没有同类问题",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-26",
+      "query": "工具调用失败该怎么处理，查相似记录",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-27",
+      "query": "Cron 表达式不合法会怎样，找相关故障说明",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-28",
+      "query": "流式输出中断过，有没有类似案例",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-29",
+      "query": "多 Agent 派发后父任务没续上，查相似问题",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-30",
+      "query": "对话上下文串到别人会话，检索同类故障",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-31",
+      "query": "超时后任务还在跑，帮我找相似故障记录",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-32",
+      "query": "线上出现会话串话，帮我找相似故障",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-33",
+      "query": "停止按钮失效还在后台写内容，有没有同类问题",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-34",
+      "query": "工具调用失败该怎么处理，查相似记录",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-35",
+      "query": "Cron 表达式不合法会怎样，找相关故障说明",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-36",
+      "query": "流式输出中断过，有没有类似案例",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-37",
+      "query": "多 Agent 派发后父任务没续上，查相似问题",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-38",
+      "query": "对话上下文串到别人会话，检索同类故障",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "similar-39",
+      "query": "超时后任务还在跑，帮我找相似故障记录",
+      "expect": "similar_incidents",
+      "got": "similar_incidents",
+      "ok": true
+    },
+    {
+      "id": "history-0",
+      "query": "最近几次问答的耗时是多少",
+      "expect": "run_history",
+      "got": "run_history",
+      "ok": true
+    },
+    {
+      "id": "history-1",
+      "query": "查看历史运行记录",
+      "expect": "run_history",
+      "got": "run_history",
+      "ok": true
+    },
+    {
+      "id": "history-2",
+      "query": "上一轮调用了哪些工具",
+      "expect": "run_history",
+      "got": "run_history",
+      "ok": true
+    },
+    {
+      "id": "history-3",
+      "query": "最近运行的证据编号有哪些",
+      "expect": "run_history",
+      "got": "run_history",
+      "ok": true
+    },
+    {
+      "id": "history-4",
+      "query": "列出最近 3 次问答轨迹",
+      "expect": "run_history",
+      "got": "run_history",
+      "ok": true
+    },
+    {
+      "id": "history-5",
+      "query": "历史运行里有没有失败",
+      "expect": "run_history",
+      "got": "run_history",
+      "ok": true
+    },
+    {
+      "id": "history-6",
+      "query": "最近几次问答的耗时是多少",
+      "expect": "run_history",
+      "got": "run_history",
+      "ok": true
+    },
+    {
+      "id": "history-7",
+      "query": "查看历史运行记录",
+      "expect": "run_history",
+      "got": "run_history",
+      "ok": true
+    },
+    {
+      "id": "history-8",
+      "query": "上一轮调用了哪些工具",
+      "expect": "run_history",
+      "got": "run_history",
+      "ok": true
+    },
+    {
+      "id": "history-9",
+      "query": "最近运行的证据编号有哪些",
+      "expect": "run_history",
+      "got": "run_history",
+      "ok": true
+    },
+    {
+      "id": "history-10",
+      "query": "列出最近 3 次问答轨迹",
+      "expect": "run_history",
+      "got": "run_history",
+      "ok": true
+    },
+    {
+      "id": "history-11",
+      "query": "历史运行里有没有失败",
+      "expect": "run_history",
+      "got": "run_history",
+      "ok": true
+    },
+    {
+      "id": "history-12",
+      "query": "最近几次问答的耗时是多少",
+      "expect": "run_history",
+      "got": "run_history",
+      "ok": true
+    },
+    {
+      "id": "history-13",
+      "query": "查看历史运行记录",
+      "expect": "run_history",
+      "got": "run_history",
+      "ok": true
+    },
+    {
+      "id": "history-14",
+      "query": "上一轮调用了哪些工具",
+      "expect": "run_history",
+      "got": "run_history",
+      "ok": true
+    },
+    {
+      "id": "history-15",
+      "query": "最近运行的证据编号有哪些",
+      "expect": "run_history",
+      "got": "run_history",
+      "ok": true
+    },
+    {
+      "id": "history-16",
+      "query": "列出最近 3 次问答轨迹",
+      "expect": "run_history",
+      "got": "run_history",
+      "ok": true
+    },
+    {
+      "id": "history-17",
+      "query": "历史运行里有没有失败",
+      "expect": "run_history",
+      "got": "run_history",
+      "ok": true
+    },
+    {
+      "id": "history-18",
+      "query": "最近几次问答的耗时是多少",
+      "expect": "run_history",
+      "got": "run_history",
+      "ok": true
+    },
+    {
+      "id": "history-19",
+      "query": "查看历史运行记录",
+      "expect": "run_history",
+      "got": "run_history",
+      "ok": true
+    },
+    {
+      "id": "history-20",
+      "query": "上一轮调用了哪些工具",
+      "expect": "run_history",
+      "got": "run_history",
+      "ok": true
+    },
+    {
+      "id": "history-21",
+      "query": "最近运行的证据编号有哪些",
+      "expect": "run_history",
+      "got": "run_history",
+      "ok": true
+    },
+    {
+      "id": "history-22",
+      "query": "列出最近 3 次问答轨迹",
+      "expect": "run_history",
+      "got": "run_history",
+      "ok": true
+    },
+    {
+      "id": "history-23",
+      "query": "历史运行里有没有失败",
+      "expect": "run_history",
+      "got": "run_history",
+      "ok": true
+    },
+    {
+      "id": "history-24",
+      "query": "最近几次问答的耗时是多少",
+      "expect": "run_history",
+      "got": "run_history",
+      "ok": true
+    },
+    {
+      "id": "history-25",
+      "query": "查看历史运行记录",
+      "expect": "run_history",
+      "got": "run_history",
+      "ok": true
+    },
+    {
+      "id": "history-26",
+      "query": "上一轮调用了哪些工具",
+      "expect": "run_history",
+      "got": "run_history",
+      "ok": true
+    },
+    {
+      "id": "history-27",
+      "query": "最近运行的证据编号有哪些",
+      "expect": "run_history",
+      "got": "run_history",
+      "ok": true
+    },
+    {
+      "id": "history-28",
+      "query": "列出最近 3 次问答轨迹",
+      "expect": "run_history",
+      "got": "run_history",
+      "ok": true
+    },
+    {
+      "id": "history-29",
+      "query": "历史运行里有没有失败",
+      "expect": "run_history",
+      "got": "run_history",
+      "ok": true
+    },
+    {
+      "id": "compare-0",
+      "query": "对比 bm25 和 hybrid 的 Hit@1",
+      "expect": "compare_versions",
+      "got": "compare_versions",
+      "ok": true
+    },
+    {
+      "id": "compare-1",
+      "query": "两个检索版本差多少",
+      "expect": "compare_versions",
+      "got": "compare_versions",
+      "ok": true
+    },
+    {
+      "id": "compare-2",
+      "query": "版本对比一下评测结果",
+      "expect": "compare_versions",
+      "got": "compare_versions",
+      "ok": true
+    },
+    {
+      "id": "compare-3",
+      "query": "hybrid 比 bm25 提升了多少",
+      "expect": "compare_versions",
+      "got": "compare_versions",
+      "ok": true
+    },
+    {
+      "id": "compare-4",
+      "query": "比较两份检索评测的 P95",
+      "expect": "compare_versions",
+      "got": "compare_versions",
+      "ok": true
+    },
+    {
+      "id": "compare-5",
+      "query": "对比 bm25 和 hybrid 的 Hit@1",
+      "expect": "compare_versions",
+      "got": "compare_versions",
+      "ok": true
+    },
+    {
+      "id": "compare-6",
+      "query": "两个检索版本差多少",
+      "expect": "compare_versions",
+      "got": "compare_versions",
+      "ok": true
+    },
+    {
+      "id": "compare-7",
+      "query": "版本对比一下评测结果",
+      "expect": "compare_versions",
+      "got": "compare_versions",
+      "ok": true
+    },
+    {
+      "id": "compare-8",
+      "query": "hybrid 比 bm25 提升了多少",
+      "expect": "compare_versions",
+      "got": "compare_versions",
+      "ok": true
+    },
+    {
+      "id": "compare-9",
+      "query": "比较两份检索评测的 P95",
+      "expect": "compare_versions",
+      "got": "compare_versions",
+      "ok": true
+    },
+    {
+      "id": "compare-10",
+      "query": "对比 bm25 和 hybrid 的 Hit@1",
+      "expect": "compare_versions",
+      "got": "compare_versions",
+      "ok": true
+    },
+    {
+      "id": "compare-11",
+      "query": "两个检索版本差多少",
+      "expect": "compare_versions",
+      "got": "compare_versions",
+      "ok": true
+    },
+    {
+      "id": "compare-12",
+      "query": "版本对比一下评测结果",
+      "expect": "compare_versions",
+      "got": "compare_versions",
+      "ok": true
+    },
+    {
+      "id": "compare-13",
+      "query": "hybrid 比 bm25 提升了多少",
+      "expect": "compare_versions",
+      "got": "compare_versions",
+      "ok": true
+    },
+    {
+      "id": "compare-14",
+      "query": "比较两份检索评测的 P95",
+      "expect": "compare_versions",
+      "got": "compare_versions",
+      "ok": true
+    },
+    {
+      "id": "compare-15",
+      "query": "对比 bm25 和 hybrid 的 Hit@1",
+      "expect": "compare_versions",
+      "got": "compare_versions",
+      "ok": true
+    },
+    {
+      "id": "compare-16",
+      "query": "两个检索版本差多少",
+      "expect": "compare_versions",
+      "got": "compare_versions",
+      "ok": true
+    },
+    {
+      "id": "compare-17",
+      "query": "版本对比一下评测结果",
+      "expect": "compare_versions",
+      "got": "compare_versions",
+      "ok": true
+    },
+    {
+      "id": "compare-18",
+      "query": "hybrid 比 bm25 提升了多少",
+      "expect": "compare_versions",
+      "got": "compare_versions",
+      "ok": true
+    },
+    {
+      "id": "compare-19",
+      "query": "比较两份检索评测的 P95",
+      "expect": "compare_versions",
+      "got": "compare_versions",
+      "ok": true
+    },
+    {
+      "id": "compare-20",
+      "query": "对比 bm25 和 hybrid 的 Hit@1",
+      "expect": "compare_versions",
+      "got": "compare_versions",
+      "ok": true
+    },
+    {
+      "id": "compare-21",
+      "query": "两个检索版本差多少",
+      "expect": "compare_versions",
+      "got": "compare_versions",
+      "ok": true
+    },
+    {
+      "id": "compare-22",
+      "query": "版本对比一下评测结果",
+      "expect": "compare_versions",
+      "got": "compare_versions",
+      "ok": true
+    },
+    {
+      "id": "compare-23",
+      "query": "hybrid 比 bm25 提升了多少",
+      "expect": "compare_versions",
+      "got": "compare_versions",
+      "ok": true
+    },
+    {
+      "id": "compare-24",
+      "query": "比较两份检索评测的 P95",
+      "expect": "compare_versions",
+      "got": "compare_versions",
+      "ok": true
+    },
+    {
+      "id": "save-0",
+      "query": "把当前评测保存成回归记录",
+      "expect": "save_regression",
+      "got": "save_regression",
+      "ok": true
+    },
+    {
+      "id": "save-1",
+      "query": "保存一次回归",
+      "expect": "save_regression",
+      "got": "run_history",
+      "ok": false
+    },
+    {
+      "id": "save-2",
+      "query": "把这次结果记入回归",
+      "expect": "save_regression",
+      "got": "run_history",
+      "ok": false
+    },
+    {
+      "id": "save-3",
+      "query": "回归保存，备注 hybrid 实验",
+      "expect": "save_regression",
+      "got": "save_regression",
+      "ok": true
+    },
+    {
+      "id": "save-4",
+      "query": "请保存评测快照",
+      "expect": "save_regression",
+      "got": "save_regression",
+      "ok": true
+    },
+    {
+      "id": "save-5",
+      "query": "把当前评测保存成回归记录",
+      "expect": "save_regression",
+      "got": "save_regression",
+      "ok": true
+    },
+    {
+      "id": "save-6",
+      "query": "保存一次回归",
+      "expect": "save_regression",
+      "got": "run_history",
+      "ok": false
+    },
+    {
+      "id": "save-7",
+      "query": "把这次结果记入回归",
+      "expect": "save_regression",
+      "got": "run_history",
+      "ok": false
+    },
+    {
+      "id": "save-8",
+      "query": "回归保存，备注 hybrid 实验",
+      "expect": "save_regression",
+      "got": "save_regression",
+      "ok": true
+    },
+    {
+      "id": "save-9",
+      "query": "请保存评测快照",
+      "expect": "save_regression",
+      "got": "save_regression",
+      "ok": true
+    },
+    {
+      "id": "save-10",
+      "query": "把当前评测保存成回归记录",
+      "expect": "save_regression",
+      "got": "save_regression",
+      "ok": true
+    },
+    {
+      "id": "save-11",
+      "query": "保存一次回归",
+      "expect": "save_regression",
+      "got": "run_history",
+      "ok": false
+    },
+    {
+      "id": "save-12",
+      "query": "把这次结果记入回归",
+      "expect": "save_regression",
+      "got": "run_history",
+      "ok": false
+    },
+    {
+      "id": "save-13",
+      "query": "回归保存，备注 hybrid 实验",
+      "expect": "save_regression",
+      "got": "save_regression",
+      "ok": true
+    },
+    {
+      "id": "save-14",
+      "query": "请保存评测快照",
+      "expect": "save_regression",
+      "got": "save_regression",
+      "ok": true
+    },
+    {
+      "id": "save-15",
+      "query": "把当前评测保存成回归记录",
+      "expect": "save_regression",
+      "got": "save_regression",
+      "ok": true
+    },
+    {
+      "id": "save-16",
+      "query": "保存一次回归",
+      "expect": "save_regression",
+      "got": "run_history",
+      "ok": false
+    },
+    {
+      "id": "save-17",
+      "query": "把这次结果记入回归",
+      "expect": "save_regression",
+      "got": "run_history",
+      "ok": false
+    },
+    {
+      "id": "save-18",
+      "query": "回归保存，备注 hybrid 实验",
+      "expect": "save_regression",
+      "got": "save_regression",
+      "ok": true
+    },
+    {
+      "id": "save-19",
+      "query": "请保存评测快照",
+      "expect": "save_regression",
+      "got": "save_regression",
+      "ok": true
+    },
+    {
+      "id": "save-20",
+      "query": "把当前评测保存成回归记录",
+      "expect": "save_regression",
+      "got": "save_regression",
+      "ok": true
+    },
+    {
+      "id": "save-21",
+      "query": "保存一次回归",
+      "expect": "save_regression",
+      "got": "run_history",
+      "ok": false
+    },
+    {
+      "id": "save-22",
+      "query": "把这次结果记入回归",
+      "expect": "save_regression",
+      "got": "run_history",
+      "ok": false
+    },
+    {
+      "id": "save-23",
+      "query": "回归保存，备注 hybrid 实验",
+      "expect": "save_regression",
+      "got": "save_regression",
+      "ok": true
+    },
+    {
+      "id": "save-24",
+      "query": "请保存评测快照",
+      "expect": "save_regression",
+      "got": "save_regression",
+      "ok": true
+    }
+  ]
+}

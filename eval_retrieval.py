@@ -1,7 +1,8 @@
-"""在 RGB zh_refine 上评测文档级 BM25：Hit@K、MRR、P95 延迟。"""
+"""在 RGB zh_refine 上评测 BM25 或混合检索。"""
 
 from __future__ import annotations
 
+import argparse
 import json
 import sys
 from pathlib import Path
@@ -10,7 +11,6 @@ from rgb_data import doc_id
 from retriever import get_index, get_rgb_items
 
 BASE_DIR = Path(__file__).resolve().parent
-OUT_PATH = BASE_DIR / "data" / "eval" / "retrieval_zh_refine.json"
 
 
 def percentile(values: list[float], p: float) -> float:
@@ -21,7 +21,7 @@ def percentile(values: list[float], p: float) -> float:
     return ordered[idx]
 
 
-def evaluate(k_list: tuple[int, ...] = (1, 3, 5, 10)) -> dict:
+def evaluate(mode: str = "bm25", k_list: tuple[int, ...] = (1, 3, 5, 10)) -> dict:
     items = get_rgb_items("zh_refine")
     index = get_index("rgb")
     max_k = max(k_list)
@@ -31,7 +31,7 @@ def evaluate(k_list: tuple[int, ...] = (1, 3, 5, 10)) -> dict:
 
     for item in items:
         gold = {doc_id(text) for text in item["positive"]}
-        ranked, elapsed_ms = index.search(item["query"], k=max_k)
+        ranked, elapsed_ms = index.search(item["query"], k=max_k, mode=mode)
         latencies.append(elapsed_ms)
         ids = [hit["id"] for hit in ranked]
         rank = next((i + 1 for i, hid in enumerate(ids) if hid in gold), None)
@@ -41,11 +41,13 @@ def evaluate(k_list: tuple[int, ...] = (1, 3, 5, 10)) -> dict:
                 hits[k] += 1
 
     n = len(items)
+    label = "jieba + BM25" if mode == "bm25" else "BM25 与 TF-IDF 融合后重排序"
     result = {
         "dataset": "RGB zh_refine",
         "source": "https://github.com/chen700564/RGB",
         "license": "CC BY-NC-SA 4.0",
-        "retriever": "jieba + BM25，文档级，语料为该分片全部 positive+negative 去重",
+        "retriever": f"{label}，文档级，语料为该分片全部 positive+negative 去重",
+        "mode": mode,
         "n_queries": n,
         "n_docs": len(index.docs),
         "hit": {
@@ -56,17 +58,25 @@ def evaluate(k_list: tuple[int, ...] = (1, 3, 5, 10)) -> dict:
         "p50_latency_ms": round(percentile(latencies, 50), 2),
         "p95_latency_ms": round(percentile(latencies, 95), 2),
     }
-    OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    OUT_PATH.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
+    name = "retrieval_zh_refine.json" if mode == "bm25" else "retrieval_hybrid_zh_refine.json"
+    out_path = BASE_DIR / "data" / "eval" / name
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
+    result["out_path"] = str(out_path)
     return result
 
 
 def main() -> None:
     sys.stdout.reconfigure(encoding="utf-8")
-    print("正在建索引并评测，第一次大约一两分钟…")
-    result = evaluate()
-    print(json.dumps(result, ensure_ascii=False, indent=2))
-    print(f"已写入 {OUT_PATH}")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--mode", choices=["bm25", "hybrid", "both"], default="both")
+    args = parser.parse_args()
+    modes = ["bm25", "hybrid"] if args.mode == "both" else [args.mode]
+    print("正在评测…")
+    for mode in modes:
+        result = evaluate(mode)
+        print(json.dumps({k: v for k, v in result.items() if k != "out_path"}, ensure_ascii=False, indent=2))
+        print(f"已写入 {result['out_path']}")
 
 
 if __name__ == "__main__":

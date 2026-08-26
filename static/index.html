@@ -34,13 +34,21 @@
     .sub a { color: #cfe3fb; }
     .stats {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 10px;
       margin-top: -18px;
       padding: 0 20px 8px;
       max-width: 1000px;
       margin-left: auto;
       margin-right: auto;
+    }
+    .tool-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .tool-pill {
+      background: #eef4fb;
+      color: var(--accent);
+      border-radius: 999px;
+      padding: 3px 10px;
+      font-size: 12px;
     }
     .stat {
       background: var(--card);
@@ -118,15 +126,17 @@
       <h1>TestPilot · 检索问答演示</h1>
       <p class="sub">
         用公开评测集 <a href="https://github.com/chen700564/RGB" target="_blank" rel="noreferrer">RGB</a>
-        （AAAI 2024，CC BY-NC-SA 4.0）的中文题和文档做检索，再按资料生成回答。资料不够会说不知道。
+        （AAAI 2024，CC BY-NC-SA 4.0）做检索问答。LangGraph 编排五个工具：文档检索、相似故障、历史运行、版本对比、回归保存。资料不够会说不知道。
       </p>
     </div>
   </header>
   <section class="stats" id="stats">
     <div class="stat"><b id="s-docs">—</b><span>RGB 去重文档</span></div>
     <div class="stat"><b id="s-q">—</b><span>公开评测题</span></div>
-    <div class="stat"><b id="s-hit1">—</b><span>BM25 Hit@1</span></div>
+    <div class="stat"><b id="s-hit1">—</b><span>混合检索 Hit@1</span></div>
     <div class="stat"><b id="s-p95">—</b><span>检索 P95</span></div>
+    <div class="stat"><b id="s-reject">—</b><span>无证据拒答</span></div>
+    <div class="stat"><b id="s-tools">—</b><span>五工具首轮选对</span></div>
   </section>
   <main>
     <div class="card">
@@ -146,6 +156,7 @@
     <div class="card">
       <div id="answer" class="answer">还没有提问。</div>
       <div id="gold"></div>
+      <div id="tools" class="tool-pills"></div>
       <div id="meta" class="meta"></div>
       <div id="sources"></div>
     </div>
@@ -162,6 +173,7 @@
     const answer = document.getElementById("answer");
     const sources = document.getElementById("sources");
     const gold = document.getElementById("gold");
+    const toolsBox = document.getElementById("tools");
     const meta = document.getElementById("meta");
     const chips = document.getElementById("chips");
     const reject = document.getElementById("reject");
@@ -212,10 +224,18 @@
       const res = await fetch("/api/stats");
       const data = await res.json();
       document.getElementById("s-docs").textContent = data.rgb_docs ?? "—";
-      document.getElementById("s-q").textContent = data.rgb_queries ?? "—";
+      document.getElementById("s-q").textContent = data.rgb_query_total ?? data.rgb_queries ?? "—";
       const hit = data.metrics && data.metrics.hit && data.metrics.hit["1"];
       document.getElementById("s-hit1").textContent = hit ? ((hit.rate * 100).toFixed(1) + "%") : "—";
-      document.getElementById("s-p95").textContent = data.metrics ? (data.metrics.p95_latency_ms + " ms") : "—";
+      document.getElementById("s-p95").textContent = data.metrics ? (Math.round(data.metrics.p95_latency_ms) + " ms") : "—";
+      const reject = data.reject_metrics;
+      document.getElementById("s-reject").textContent = reject
+        ? (reject.correct + "/" + reject.n)
+        : "—";
+      const toolEval = data.tool_metrics;
+      document.getElementById("s-tools").textContent = toolEval
+        ? (toolEval.correct + "/" + toolEval.n)
+        : "评测中";
     }
 
     async function loadExamples() {
@@ -236,6 +256,7 @@
       answer.className = "answer";
       answer.textContent = kind === "search" ? "正在检索…" : "正在检索并生成…";
       gold.textContent = "";
+      toolsBox.innerHTML = "";
       meta.textContent = "";
       sources.innerHTML = "";
       const payload = {
@@ -267,6 +288,11 @@
         renderGold(data.gold_answers);
         const bits = [];
         if (data.note) bits.push(data.note);
+        if (data.tools && data.tools.length) {
+          const names = data.tools.map((t) => t.name).filter(Boolean);
+          bits.push("工具 " + names.join(" / "));
+          toolsBox.innerHTML = names.map((name) => `<span class="tool-pill">${name}</span>`).join("");
+        }
         if (data.latency_ms != null) bits.push("检索 " + data.latency_ms + " ms");
         if (data.generate_ms) bits.push("生成 " + Math.round(data.generate_ms) + " ms");
         meta.textContent = bits.join(" · ");
