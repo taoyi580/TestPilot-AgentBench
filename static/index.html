@@ -133,7 +133,7 @@
       <div class="row">
         <label><input type="radio" name="corpus" value="rgb" checked /> RGB 公开新闻问答</label>
         <label><input type="radio" name="corpus" value="kb" /> 本地研发笔记</label>
-        <label><input type="checkbox" id="reject" /> 无证据演示（只给噪声文档，应拒答）</label>
+        <label><input type="checkbox" id="reject" /> 无证据场景（仅提供无关文档）</label>
       </div>
       <label for="q">问题</label>
       <textarea id="q" placeholder="点下面的例子，或自己输入"></textarea>
@@ -150,9 +150,9 @@
       <div id="sources"></div>
     </div>
     <p class="foot">
-      评测协议参考 RGB 仓库：正例/噪声文档来自公开集，Hit@K 由本仓库脚本 <code>eval_retrieval.py</code> 实跑。
+      语料来自公开评测集 <a href="https://github.com/chen700564/RGB" target="_blank" rel="noreferrer">RGB</a>
+      （AAAI 2024，CC BY-NC-SA 4.0，非商业使用）。
       代码：<a href="https://github.com/taoyi580/TestPilot-AgentBench" target="_blank" rel="noreferrer">GitHub</a>
-      · 面试准备页：<a href="/learn">学习台</a> · <a href="/guide">文字全解</a>
     </p>
   </main>
   <script>
@@ -214,7 +214,7 @@
       document.getElementById("s-docs").textContent = data.rgb_docs ?? "—";
       document.getElementById("s-q").textContent = data.rgb_queries ?? "—";
       const hit = data.metrics && data.metrics.hit && data.metrics.hit["1"];
-      document.getElementById("s-hit1").textContent = hit ? ((hit.rate * 100).toFixed(1) + "%") : "评测未跑";
+      document.getElementById("s-hit1").textContent = hit ? ((hit.rate * 100).toFixed(1) + "%") : "—";
       document.getElementById("s-p95").textContent = data.metrics ? (data.metrics.p95_latency_ms + " ms") : "—";
     }
 
@@ -257,7 +257,7 @@
           return;
         }
         if (kind === "search") {
-          answer.textContent = "下面是检索结果，这一步还没有调用大模型。";
+          answer.textContent = "下面是检索结果，尚未生成回答。";
         } else if (data.error) {
           answer.className = "answer err";
           answer.textContent = "生成失败：" + data.error + "（检索结果仍可看）";
@@ -273,7 +273,7 @@
         renderSources(data.sources);
       } catch (e) {
         answer.className = "answer err";
-        answer.textContent = "连不上服务，看一下窗口有没有在跑。";
+        answer.textContent = "暂时连不上服务，请稍后重试。";
       } finally {
         go.disabled = false;
         searchOnly.disabled = false;

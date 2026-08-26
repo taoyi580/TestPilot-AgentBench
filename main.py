@@ -47,7 +47,7 @@ class AskIn(BaseModel):
 def get_client() -> OpenAI:
     key = os.getenv("DEEPSEEK_API_KEY", "").strip()
     if not key or key.startswith("把你的"):
-        raise RuntimeError("还没有配置钥匙，请把 DeepSeek API Key 写进 .env")
+        raise RuntimeError("生成服务暂未配置，仍可查看检索结果")
     return OpenAI(api_key=key, base_url="https://api.deepseek.com")
 
 
@@ -75,24 +75,6 @@ def health() -> dict:
 @app.get("/")
 def home() -> FileResponse:
     return FileResponse(BASE_DIR / "static" / "index.html")
-
-
-@app.get("/learn")
-def learn() -> FileResponse:
-    return FileResponse(BASE_DIR / "static" / "learn.html")
-
-
-@app.get("/learn-data.js")
-def learn_data() -> FileResponse:
-    return FileResponse(
-        BASE_DIR / "static" / "learn-data.js",
-        media_type="text/javascript; charset=utf-8",
-    )
-
-
-@app.get("/guide")
-def guide() -> FileResponse:
-    return FileResponse(BASE_DIR / "static" / "guide.html")
 
 
 @app.get("/api/stats")
@@ -166,7 +148,7 @@ def ask(body: AskIn) -> dict:
             for i, text in enumerate(gold["negative"][:k])
         ]
         elapsed_ms = 0.0
-        evidence_note = "演示无证据：只提供该题的噪声文档，不含正例。"
+        evidence_note = "无证据模式：上下文仅含无关文档。"
     else:
         hits, elapsed_ms = retrieve(question, k=k, corpus=corpus)
         evidence_note = ""
