@@ -1,5 +1,7 @@
 # TestPilot
 
+仓库：[taoyi580/TestPilot-AgentBench](https://github.com/taoyi580/TestPilot-AgentBench)
+
 可演示的检索问答：先检索本地文档，再按资料生成回答。资料不够会说不知道。
 
 主评测语料来自公开集 [RGB](https://github.com/chen700564/RGB)（AAAI 2024，CC BY-NC-SA 4.0，**仅非商业使用**）。本仓库用于求职作品演示，不用于商业产品。
