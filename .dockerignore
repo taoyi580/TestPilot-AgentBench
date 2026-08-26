@@ -1,0 +1,11 @@
+.git
+.venv
+.env
+__pycache__
+*.pyc
+data/cache
+traces
+.idea
+.vscode
+面试准备文字全解.html
+*.canvas.tsx

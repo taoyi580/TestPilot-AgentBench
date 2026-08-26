@@ -1,0 +1,11 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.idea/
+.vscode/
+data/cache/
+traces/
+面试准备文字全解.html
+

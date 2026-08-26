@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+openai
+jieba
+rank_bm25
+numpy
+

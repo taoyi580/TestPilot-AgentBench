@@ -1,0 +1,29 @@
+{
+  "dataset": "RGB zh_refine",
+  "source": "https://github.com/chen700564/RGB",
+  "license": "CC BY-NC-SA 4.0",
+  "retriever": "jieba + BM25，文档级，语料为该分片全部 positive+negative 去重",
+  "n_queries": 300,
+  "n_docs": 7337,
+  "hit": {
+    "1": {
+      "count": 201,
+      "rate": 0.67
+    },
+    "3": {
+      "count": 272,
+      "rate": 0.9067
+    },
+    "5": {
+      "count": 284,
+      "rate": 0.9467
+    },
+    "10": {
+      "count": 292,
+      "rate": 0.9733
+    }
+  },
+  "mrr_at_10": 0.787,
+  "p50_latency_ms": 27.31,
+  "p95_latency_ms": 40.08
+}

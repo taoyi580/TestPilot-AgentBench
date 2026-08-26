@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TestPilot · 公开集检索问答</title>
+  <style>
+    :root {
+      --bg: #f4f6f8;
+      --card: #fff;
+      --ink: #1c2430;
+      --muted: #5b6573;
+      --line: #e2e6ec;
+      --accent: #1e4f8a;
+      --accent-soft: #e8f0f8;
+      --ok: #1f6b3a;
+      --warn: #8a4b12;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
+    header {
+      background: #16324f;
+      color: #fff;
+      padding: 28px 20px 24px;
+    }
+    header .wrap, main { max-width: 960px; margin: 0 auto; }
+    h1 { font-size: 24px; margin: 0 0 8px; font-weight: 650; }
+    .sub { opacity: 0.86; line-height: 1.6; font-size: 14px; }
+    .sub a { color: #cfe3fb; }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: -18px;
+      padding: 0 20px 8px;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .stat {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+    .stat b { display: block; font-size: 20px; color: var(--accent); }
+    .stat span { font-size: 12px; color: var(--muted); }
+    main { padding: 18px 20px 48px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 18px;
+      margin-top: 14px;
+    }
+    label { font-size: 13px; color: var(--muted); }
+    .row { display: flex; gap: 16px; flex-wrap: wrap; margin: 10px 0 12px; }
+    .row label { display: flex; align-items: center; gap: 6px; cursor: pointer; color: var(--ink); }
+    textarea {
+      width: 100%;
+      min-height: 88px;
+      padding: 10px 12px;
+      font-size: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      resize: vertical;
+    }
+    button {
+      background: var(--accent);
+      color: #fff;
+      border: 0;
+      border-radius: 8px;
+      padding: 9px 16px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    button.secondary { background: #4d5d70; }
+    button:disabled { opacity: 0.6; cursor: wait; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .chip {
+      border: 1px solid var(--line);
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .answer { white-space: pre-wrap; line-height: 1.7; font-size: 16px; }
+    .err { color: #a40000; }
+    .meta { color: var(--muted); font-size: 13px; margin-top: 8px; }
+    .gold { margin-top: 10px; background: #f3f8f4; border: 1px solid #d7eadc; color: var(--ok); padding: 8px 10px; border-radius: 8px; font-size: 14px; }
+    .src {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-top: 8px;
+      font-size: 14px;
+      line-height: 1.55;
+      color: #333;
+    }
+    .src strong { display: block; margin-bottom: 4px; }
+    .foot { margin-top: 18px; font-size: 13px; color: var(--muted); }
+    .foot a { color: var(--accent); }
+    @media (max-width: 720px) {
+      .stats { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>TestPilot · 检索问答演示</h1>
+      <p class="sub">
+        用公开评测集 <a href="https://github.com/chen700564/RGB" target="_blank" rel="noreferrer">RGB</a>
+        （AAAI 2024，CC BY-NC-SA 4.0）的中文题和文档做检索，再按资料生成回答。资料不够会说不知道。
+      </p>
+    </div>
+  </header>
+  <section class="stats" id="stats">
+    <div class="stat"><b id="s-docs">—</b><span>RGB 去重文档</span></div>
+    <div class="stat"><b id="s-q">—</b><span>公开评测题</span></div>
+    <div class="stat"><b id="s-hit1">—</b><span>BM25 Hit@1</span></div>
+    <div class="stat"><b id="s-p95">—</b><span>检索 P95</span></div>
+  </section>
+  <main>
+    <div class="card">
+      <div class="row">
+        <label><input type="radio" name="corpus" value="rgb" checked /> RGB 公开新闻问答</label>
+        <label><input type="radio" name="corpus" value="kb" /> 本地研发笔记</label>
+        <label><input type="checkbox" id="reject" /> 无证据演示（只给噪声文档，应拒答）</label>
+      </div>
+      <label for="q">问题</label>
+      <textarea id="q" placeholder="点下面的例子，或自己输入"></textarea>
+      <div class="chips" id="chips"></div>
+      <p style="margin: 12px 0 0;">
+        <button id="go" type="button">提问</button>
+        <button id="search-only" class="secondary" type="button">只看检索</button>
+      </p>
+    </div>
+    <div class="card">
+      <div id="answer" class="answer">还没有提问。</div>
+      <div id="gold"></div>
+      <div id="meta" class="meta"></div>
+      <div id="sources"></div>
+    </div>
+    <p class="foot">
+      评测协议参考 RGB 仓库：正例/噪声文档来自公开集，Hit@K 由本仓库脚本 <code>eval_retrieval.py</code> 实跑。
+      面试准备页：<a href="/learn">学习台</a> · <a href="/guide">文字全解</a>
+    </p>
+  </main>
+  <script>
+    const q = document.getElementById("q");
+    const go = document.getElementById("go");
+    const searchOnly = document.getElementById("search-only");
+    const answer = document.getElementById("answer");
+    const sources = document.getElementById("sources");
+    const gold = document.getElementById("gold");
+    const meta = document.getElementById("meta");
+    const chips = document.getElementById("chips");
+    const reject = document.getElementById("reject");
+    let examples = { qa: [], reject: [], kb: [] };
+
+    function corpus() {
+      const picked = document.querySelector("input[name=corpus]:checked");
+      return picked ? picked.value : "rgb";
+    }
+
+    function renderSources(list) {
+      if (!list || !list.length) {
+        sources.innerHTML = "<p class='meta'>没有检索到相关资料。</p>";
+        return;
+      }
+      sources.innerHTML = "<p class='meta'>用到的资料</p>" + list.map((s) => {
+        const text = (s.text || "").replaceAll("<", "&lt;");
+        const title = (s.title || "").replaceAll("<", "&lt;");
+        const score = s.score ? ` · 分数 ${s.score}` : "";
+        return `<div class="src"><strong>${title}${score}</strong><div>${text}</div></div>`;
+      }).join("");
+    }
+
+    function renderGold(answers) {
+      if (answers && answers.length) {
+        gold.className = "gold";
+        gold.textContent = "RGB 公开参考答案：" + answers.join("；");
+      } else {
+        gold.className = "";
+        gold.textContent = "";
+      }
+    }
+
+    function renderChips() {
+      const list = corpus() === "kb" ? examples.kb : (reject.checked ? examples.reject : examples.qa);
+      chips.innerHTML = "";
+      list.forEach((item) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "chip";
+        btn.textContent = item.query;
+        btn.onclick = () => { q.value = item.query; };
+        chips.appendChild(btn);
+      });
+    }
+
+    async function loadStats() {
+      const res = await fetch("/api/stats");
+      const data = await res.json();
+      document.getElementById("s-docs").textContent = data.rgb_docs ?? "—";
+      document.getElementById("s-q").textContent = data.rgb_queries ?? "—";
+      const hit = data.metrics && data.metrics.hit && data.metrics.hit["1"];
+      document.getElementById("s-hit1").textContent = hit ? ((hit.rate * 100).toFixed(1) + "%") : "评测未跑";
+      document.getElementById("s-p95").textContent = data.metrics ? (data.metrics.p95_latency_ms + " ms") : "—";
+    }
+
+    async function loadExamples() {
+      const res = await fetch("/api/examples");
+      examples = await res.json();
+      renderChips();
+    }
+
+    async function run(kind) {
+      const question = q.value.trim();
+      if (!question) {
+        answer.className = "answer err";
+        answer.textContent = "请先输入或点选一个问题。";
+        return;
+      }
+      go.disabled = true;
+      searchOnly.disabled = true;
+      answer.className = "answer";
+      answer.textContent = kind === "search" ? "正在检索…" : "正在检索并生成…";
+      gold.textContent = "";
+      meta.textContent = "";
+      sources.innerHTML = "";
+      const payload = {
+        question,
+        corpus: corpus(),
+        k: 5,
+        mode: reject.checked ? "reject" : "qa",
+      };
+      try {
+        const res = await fetch(kind === "search" ? "/search" : "/ask", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json();
+        if (data.error && !data.sources) {
+          answer.className = "answer err";
+          answer.textContent = data.error;
+          return;
+        }
+        if (kind === "search") {
+          answer.textContent = "下面是检索结果，这一步还没有调用大模型。";
+        } else if (data.error) {
+          answer.className = "answer err";
+          answer.textContent = "生成失败：" + data.error + "（检索结果仍可看）";
+        } else {
+          answer.textContent = data.answer || "没有生成文字。";
+        }
+        renderGold(data.gold_answers);
+        const bits = [];
+        if (data.note) bits.push(data.note);
+        if (data.latency_ms != null) bits.push("检索 " + data.latency_ms + " ms");
+        if (data.generate_ms) bits.push("生成 " + Math.round(data.generate_ms) + " ms");
+        meta.textContent = bits.join(" · ");
+        renderSources(data.sources);
+      } catch (e) {
+        answer.className = "answer err";
+        answer.textContent = "连不上服务，看一下窗口有没有在跑。";
+      } finally {
+        go.disabled = false;
+        searchOnly.disabled = false;
+      }
+    }
+
+    document.querySelectorAll("input[name=corpus]").forEach((el) => el.addEventListener("change", renderChips));
+    reject.addEventListener("change", renderChips);
+    go.onclick = () => run("ask");
+    searchOnly.onclick = () => run("search");
+    loadStats().catch(() => {});
+    loadExamples().catch(() => {});
+  </script>
+</body>
+</html>
