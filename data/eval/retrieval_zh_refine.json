@@ -4,8 +4,11 @@
   "license": "CC BY-NC-SA 4.0",
   "retriever": "jieba + BM25，文档级，语料为该分片全部 positive+negative 去重",
   "mode": "bm25",
+  "embed_model": null,
+  "vector_backend": null,
   "n_queries": 300,
   "n_docs": 7337,
+  "n_chunks": 7401,
   "hit": {
     "1": {
       "count": 201,
@@ -25,6 +28,6 @@
     }
   },
   "mrr_at_10": 0.787,
-  "p50_latency_ms": 27.44,
-  "p95_latency_ms": 40.1
+  "p50_latency_ms": 27.9,
+  "p95_latency_ms": 39.5
 }

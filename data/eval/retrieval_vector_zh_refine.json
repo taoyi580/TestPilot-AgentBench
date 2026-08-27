@@ -1,0 +1,33 @@
+{
+  "dataset": "RGB zh_refine",
+  "source": "https://github.com/chen700564/RGB",
+  "license": "CC BY-NC-SA 4.0",
+  "retriever": "BGE-small-zh 向量检索（Qdrant），文档级，语料为该分片全部 positive+negative 去重",
+  "mode": "vector",
+  "embed_model": "BAAI/bge-small-zh-v1.5",
+  "vector_backend": "qdrant-local",
+  "n_queries": 300,
+  "n_docs": 7337,
+  "n_chunks": 7401,
+  "hit": {
+    "1": {
+      "count": 216,
+      "rate": 0.72
+    },
+    "3": {
+      "count": 273,
+      "rate": 0.91
+    },
+    "5": {
+      "count": 281,
+      "rate": 0.9367
+    },
+    "10": {
+      "count": 290,
+      "rate": 0.9667
+    }
+  },
+  "mrr_at_10": 0.8185,
+  "p50_latency_ms": 39.6,
+  "p95_latency_ms": 49.26
+}

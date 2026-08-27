@@ -6,6 +6,7 @@ __pycache__/
 .idea/
 .vscode/
 data/cache/
+data/qdrant/
 traces/
 data/eval/regressions.jsonl
 

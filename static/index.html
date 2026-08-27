@@ -126,7 +126,7 @@
       <h1>TestPilot · 检索问答演示</h1>
       <p class="sub">
         用公开评测集 <a href="https://github.com/chen700564/RGB" target="_blank" rel="noreferrer">RGB</a>
-        （AAAI 2024，CC BY-NC-SA 4.0）做检索问答。LangGraph 编排五个工具：文档检索、相似故障、历史运行、版本对比、回归保存。资料不够会说不知道。
+        （AAAI 2024，CC BY-NC-SA 4.0）做检索问答。切块后用 BGE 向量进 Qdrant，再和 BM25 混合召回。LangGraph 编排五个工具：文档检索、相似故障、历史运行、版本对比、回归保存。资料不够会说不知道。
       </p>
     </div>
   </header>

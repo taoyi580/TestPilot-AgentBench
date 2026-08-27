@@ -36,7 +36,7 @@ async def lifespan(_app: FastAPI):
 
 app = FastAPI(
     title="TestPilot",
-    description="RGB 公开集上的检索问答演示",
+    description="RGB 公开集上的检索问答演示：切块、BGE 向量、Qdrant、BM25 混合召回",
     lifespan=lifespan,
 )
 
@@ -96,6 +96,9 @@ def stats() -> dict:
     counts = rgb_query_counts()
     return {
         "rgb_docs": len(rgb_index.docs),
+        "rgb_chunks": rgb_index.n_chunks,
+        "embed_model": rgb_index.embed_model,
+        "vector_backend": rgb_index.vector_backend,
         "rgb_queries": counts["zh_refine"],
         "rgb_query_total": counts["total"],
         "rgb_splits": counts,

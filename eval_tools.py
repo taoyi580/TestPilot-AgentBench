@@ -1,4 +1,4 @@
-"""五工具离线调用评测：200 题，看首轮是否选对工具。不是官方 BFCL。"""
+"""五工具离线调用评测：200 题，看首轮是否选对工具。"""
 
 from __future__ import annotations
 
@@ -129,7 +129,7 @@ def main() -> None:
         records.append({**item, "got": got, "ok": ok})
         print(f"{item['id']}\t{ok}\t{got}\t{item['expect']}", flush=True)
     result = {
-        "dataset": "self-built 5-tool first-call routing, not official BFCL",
+        "dataset": "self-built 5-tool first-call routing",
         "n": len(dataset),
         "correct": correct,
         "rate": round(correct / len(dataset), 4),

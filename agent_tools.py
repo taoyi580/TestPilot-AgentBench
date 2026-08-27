@@ -75,6 +75,7 @@ def build_tools(corpus: str = "rgb") -> tuple[list, list]:
         """对比两份检索评测结果，例如 bm25 与 hybrid 的 Hit@1。"""
         mapping = {
             "bm25": EVAL_DIR / "retrieval_zh_refine.json",
+            "vector": EVAL_DIR / "retrieval_vector_zh_refine.json",
             "hybrid": EVAL_DIR / "retrieval_hybrid_zh_refine.json",
         }
         left_path = mapping.get(left, EVAL_DIR / left)
@@ -111,7 +112,11 @@ def build_tools(corpus: str = "rgb") -> tuple[list, list]:
             "note": note,
             "files": {},
         }
-        for name in ("retrieval_zh_refine.json", "retrieval_hybrid_zh_refine.json"):
+        for name in (
+            "retrieval_zh_refine.json",
+            "retrieval_vector_zh_refine.json",
+            "retrieval_hybrid_zh_refine.json",
+        ):
             path = EVAL_DIR / name
             if path.exists():
                 payload["files"][name] = json.loads(path.read_text(encoding="utf-8"))

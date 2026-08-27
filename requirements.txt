@@ -5,6 +5,8 @@ openai
 jieba
 rank_bm25
 numpy
+qdrant-client
+fastembed
 langgraph
 langchain-openai
 langchain-core
