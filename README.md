@@ -45,19 +45,43 @@ RGB 中文部分共 500 题：`zh_refine` 300 + `zh_int` 100 + `zh_fact` 100。�
 
 可选：设置 `TESTPILOT_RERANK=1` 后，混合检索会对前 20 条做 `bge-reranker-base` 重排。上表主数字未计入这一步。换机器复跑可能有小幅波动。明细见 [DATA.md](DATA.md)。
 
+## 在另一台电脑运行
+
+推荐使用 **Python 3.12（64 位）**。首次运行需要联网下载中文向量模型，并为仓库内的文档建立本地索引；完成前服务不会开始接收请求。
+
+Windows PowerShell：
+
+```powershell
+py -3.12 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+Copy-Item .env.example .env
+.\.venv\Scripts\python.exe -m uvicorn main:app --host 127.0.0.1 --port 8000
+```
+
+macOS / Linux：
+
+```bash
+python3.12 -m venv .venv
+./.venv/bin/python -m pip install -r requirements.txt
+cp .env.example .env
+./.venv/bin/python -m uvicorn main:app --host 127.0.0.1 --port 8000
+```
+
+打开 http://127.0.0.1:8000 。不配置 `DEEPSEEK_API_KEY` 仍可使用“只看检索”；需要生成完整回答时，再把密钥写入本机 `.env`，不要提交。
+
+如果首次模型下载被网络或代理阻断，应用无法完成索引初始化。生成的模型缓存和 Qdrant 数据只保存在本机 `data/cache/`、`data/qdrant/`，已被 Git 忽略。
+
 ## 复现评测
 
 ```bash
-python -m venv .venv
-.venv\Scripts\python.exe -m pip install -r requirements.txt
-copy .env.example .env
-
-python eval_retrieval.py --mode all
-python eval_reject.py
-python eval_tools.py
+./.venv/bin/python eval_retrieval.py --mode all
+./.venv/bin/python eval_reject.py
+./.venv/bin/python eval_tools.py
 ```
 
-首次评测会下载 `BAAI/bge-small-zh-v1.5`，并为 7000 余篇文档建向量库，需要几分钟。向量和 Qdrant 数据写在 `data/cache/`、`data/qdrant/`，不提交到 Git。
+Windows 将命令中的 `./.venv/bin/python` 换成 `.\.venv\Scripts\python.exe`。
+
+首次评测会下载 `BAAI/bge-small-zh-v1.5`，并为 7000 余篇文档建向量库。向量和 Qdrant 数据写在 `data/cache/`、`data/qdrant/`，不提交到 Git。
 
 生成回答需要 `DEEPSEEK_API_KEY`。未配置时检索评测仍可完整跑完。
 

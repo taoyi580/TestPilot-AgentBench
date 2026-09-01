@@ -1,14 +1,14 @@
-fastapi
-uvicorn[standard]
-python-dotenv
-openai
-jieba
-rank_bm25
-numpy
-qdrant-client
-fastembed
-langgraph
-langchain-openai
-langchain-core
+fastapi==0.141.1
+uvicorn[standard]==0.52.4
+python-dotenv==1.2.3
+openai==3.6.0
+jieba==0.42.1
+rank_bm25==0.2.2
+numpy==2.5.2
+qdrant-client==1.19.0
+fastembed==0.8.0
+langgraph==1.2.11
+langchain-openai==1.6.0
+langchain-core==1.6.1
 
 

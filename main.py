@@ -13,17 +13,13 @@ from fastapi.responses import FileResponse
 from openai import OpenAI
 from pydantic import BaseModel
 
-from retriever import get_index, get_rgb_items, retrieve, rgb_query_counts
+from retriever import get_index, get_rgb_items, retrieve
 from rgb_data import find_item_by_query
 from agent import run_agent
 
 load_dotenv(override=False)
 
 BASE_DIR = Path(__file__).resolve().parent
-EVAL_PATH = BASE_DIR / "data" / "eval" / "retrieval_zh_refine.json"
-HYBRID_EVAL_PATH = BASE_DIR / "data" / "eval" / "retrieval_hybrid_zh_refine.json"
-REJECT_EVAL_PATH = BASE_DIR / "data" / "eval" / "reject_zh_refine.json"
-TOOLS_EVAL_PATH = BASE_DIR / "data" / "eval" / "tool_calls_200.json"
 TRACE_PATH = BASE_DIR / "traces" / "ask.jsonl"
 
 
@@ -36,7 +32,7 @@ async def lifespan(_app: FastAPI):
 
 app = FastAPI(
     title="TestPilot",
-    description="RGB 公开集上的检索问答演示：切块、BGE 向量、Qdrant、BM25 混合召回",
+    description="先检索知识库证据，再生成带来源的研发问答和故障诊断结果。",
     lifespan=lifespan,
 )
 
@@ -61,18 +57,15 @@ def append_trace(row: dict) -> None:
         handle.write(json.dumps(row, ensure_ascii=False) + "\n")
 
 
-def load_eval_json(path: Path, drop_records: bool = True) -> dict | None:
-    if not path.exists():
-        return None
-    data = json.loads(path.read_text(encoding="utf-8"))
-    if drop_records:
-        data = {key: value for key, value in data.items() if key != "records"}
-    data["metric_file"] = path.name
-    return data
-
-
-def load_metrics() -> dict | None:
-    return load_eval_json(HYBRID_EVAL_PATH) or load_eval_json(EVAL_PATH)
+def public_sources(items: list[dict]) -> list[dict]:
+    return [
+        {
+            "id": item.get("id"),
+            "title": item.get("title"),
+            "text": item.get("text"),
+        }
+        for item in items
+    ]
 
 
 @app.get("/health")
@@ -89,39 +82,11 @@ def home() -> FileResponse:
     return FileResponse(BASE_DIR / "static" / "index.html")
 
 
-@app.get("/api/stats")
-def stats() -> dict:
-    rgb_index = get_index("rgb")
-    kb_index = get_index("kb")
-    counts = rgb_query_counts()
-    return {
-        "rgb_docs": len(rgb_index.docs),
-        "rgb_chunks": rgb_index.n_chunks,
-        "embed_model": rgb_index.embed_model,
-        "vector_backend": rgb_index.vector_backend,
-        "rgb_queries": counts["zh_refine"],
-        "rgb_query_total": counts["total"],
-        "rgb_splits": counts,
-        "kb_docs": len(kb_index.docs),
-        "metrics": load_metrics(),
-        "bm25_metrics": load_eval_json(EVAL_PATH),
-        "reject_metrics": load_eval_json(REJECT_EVAL_PATH),
-        "tool_metrics": load_eval_json(TOOLS_EVAL_PATH),
-        "source": "https://github.com/chen700564/RGB",
-    }
-
-
 @app.get("/api/examples")
 def examples() -> dict:
     items = get_rgb_items()
-    qa = [
-        {"query": item["query"], "answers": item["answers"]}
-        for item in items[:8]
-    ]
-    reject = [
-        {"query": item["query"], "answers": item["answers"]}
-        for item in items[8:12]
-    ]
+    qa = [{"query": item["query"]} for item in items[:8]]
+    reject = [{"query": item["query"]} for item in items[8:12]]
     kb = [
         {"query": "会话串话是什么原因？"},
         {"query": "对比 bm25 和 hybrid 的 Hit@1"},
@@ -137,14 +102,8 @@ def search(body: AskIn) -> dict:
         return {"error": "请先输入问题"}
     corpus = (body.corpus or "rgb").lower()
     k = max(1, min(int(body.k or 5), 10))
-    hits, elapsed_ms = retrieve(question, k=k, corpus=corpus, mode="hybrid")
-    gold = find_item_by_query(get_rgb_items(), question) if corpus == "rgb" else None
-    return {
-        "sources": hits,
-        "latency_ms": round(elapsed_ms, 2),
-        "gold_answers": gold["answers"] if gold else [],
-        "query_id": gold["id"] if gold else None,
-    }
+    hits, _ = retrieve(question, k=k, corpus=corpus, mode="hybrid")
+    return {"sources": public_sources(hits)}
 
 
 @app.post("/ask")
@@ -174,7 +133,6 @@ def ask(body: AskIn) -> dict:
             for i, text_item in enumerate(gold["negative"][:k])
         ]
         elapsed_ms = 0.0
-        evidence_note = "无证据模式：上下文仅含无关文档。"
         if hits:
             evidence = "\n\n".join(
                 f"资料{i + 1}《{item['title']}》：\n{item['text']}"
@@ -206,7 +164,6 @@ def ask(body: AskIn) -> dict:
         except Exception as exc:
             error = str(exc)
     else:
-        evidence_note = ""
         elapsed_ms = 0.0
         try:
             agent_out = run_agent(question, corpus=corpus)
@@ -218,19 +175,13 @@ def ask(body: AskIn) -> dict:
             hits, elapsed_ms = retrieve(question, k=k, corpus=corpus, mode="hybrid")
             error = str(exc)
 
-    result = {
+    public_result = {
         "answer": text,
         "error": error,
-        "sources": hits,
-        "tools": tools,
-        "latency_ms": round(elapsed_ms, 2),
-        "generate_ms": round(gen_ms, 2),
-        "corpus": corpus,
-        "mode": mode,
-        "note": evidence_note,
-        "gold_answers": gold["answers"] if gold else [],
-        "query_id": gold["id"] if gold else None,
+        "sources": public_sources(hits),
     }
+    retrieval_ms = round(elapsed_ms, 2)
+    generation_ms = round(gen_ms, 2)
     append_trace(
         {
             "ts": datetime.now(timezone.utc).isoformat(),
@@ -239,9 +190,9 @@ def ask(body: AskIn) -> dict:
             "mode": mode,
             "tools": [item.get("name") for item in tools],
             "source_ids": [item["id"] for item in hits],
-            "latency_ms": result["latency_ms"],
-            "generate_ms": result["generate_ms"],
+            "latency_ms": retrieval_ms,
+            "generate_ms": generation_ms,
             "error": error,
         }
     )
-    return result
+    return public_result

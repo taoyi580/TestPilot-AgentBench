@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>TestPilot · 公开集检索问答</title>
+  <title>TestPilot · 研发文档与故障诊断助手</title>
   <style>
     :root {
       --bg: #f4f6f8;
@@ -32,32 +32,6 @@
     h1 { font-size: 24px; margin: 0 0 8px; font-weight: 650; }
     .sub { opacity: 0.86; line-height: 1.6; font-size: 14px; }
     .sub a { color: #cfe3fb; }
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: -18px;
-      padding: 0 20px 8px;
-      max-width: 1000px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .tool-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-    .tool-pill {
-      background: #eef4fb;
-      color: var(--accent);
-      border-radius: 999px;
-      padding: 3px 10px;
-      font-size: 12px;
-    }
-    .stat {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 12px 14px;
-    }
-    .stat b { display: block; font-size: 20px; color: var(--accent); }
-    .stat span { font-size: 12px; color: var(--muted); }
     main { padding: 18px 20px 48px; }
     .card {
       background: var(--card);
@@ -102,7 +76,6 @@
     .answer { white-space: pre-wrap; line-height: 1.7; font-size: 16px; }
     .err { color: #a40000; }
     .meta { color: var(--muted); font-size: 13px; margin-top: 8px; }
-    .gold { margin-top: 10px; background: #f3f8f4; border: 1px solid #d7eadc; color: var(--ok); padding: 8px 10px; border-radius: 8px; font-size: 14px; }
     .src {
       border: 1px solid var(--line);
       border-radius: 8px;
@@ -115,35 +88,23 @@
     .src strong { display: block; margin-bottom: 4px; }
     .foot { margin-top: 18px; font-size: 13px; color: var(--muted); }
     .foot a { color: var(--accent); }
-    @media (max-width: 720px) {
-      .stats { grid-template-columns: 1fr 1fr; }
-    }
   </style>
 </head>
 <body>
   <header>
     <div class="wrap">
-      <h1>TestPilot · 检索问答演示</h1>
+      <h1>TestPilot · 研发文档与故障诊断助手</h1>
       <p class="sub">
-        用公开评测集 <a href="https://github.com/chen700564/RGB" target="_blank" rel="noreferrer">RGB</a>
-        （AAAI 2024，CC BY-NC-SA 4.0）做检索问答。切块后用 BGE 向量进 Qdrant，再和 BM25 混合召回。LangGraph 编排五个工具：文档检索、相似故障、历史运行、版本对比、回归保存。资料不够会说不知道。
+        输入问题后，系统先从知识库查找相关资料，再根据证据生成回答并给出来源。
+        遇到资料不足的情况会明确说明，不根据空白信息猜测。
       </p>
     </div>
   </header>
-  <section class="stats" id="stats">
-    <div class="stat"><b id="s-docs">—</b><span>RGB 去重文档</span></div>
-    <div class="stat"><b id="s-q">—</b><span>公开评测题</span></div>
-    <div class="stat"><b id="s-hit1">—</b><span>混合检索 Hit@1</span></div>
-    <div class="stat"><b id="s-p95">—</b><span>检索 P95</span></div>
-    <div class="stat"><b id="s-reject">—</b><span>无证据拒答</span></div>
-    <div class="stat"><b id="s-tools">—</b><span>五工具首轮选对</span></div>
-  </section>
   <main>
     <div class="card">
       <div class="row">
-        <label><input type="radio" name="corpus" value="rgb" checked /> RGB 公开新闻问答</label>
-        <label><input type="radio" name="corpus" value="kb" /> 本地研发笔记</label>
-        <label><input type="checkbox" id="reject" /> 无证据场景（仅提供无关文档）</label>
+        <label><input type="radio" name="corpus" value="rgb" checked /> 公开知识库</label>
+        <label><input type="radio" name="corpus" value="kb" /> 研发知识库</label>
       </div>
       <label for="q">问题</label>
       <textarea id="q" placeholder="点下面的例子，或自己输入"></textarea>
@@ -155,9 +116,6 @@
     </div>
     <div class="card">
       <div id="answer" class="answer">还没有提问。</div>
-      <div id="gold"></div>
-      <div id="tools" class="tool-pills"></div>
-      <div id="meta" class="meta"></div>
       <div id="sources"></div>
     </div>
     <p class="foot">
@@ -172,11 +130,7 @@
     const searchOnly = document.getElementById("search-only");
     const answer = document.getElementById("answer");
     const sources = document.getElementById("sources");
-    const gold = document.getElementById("gold");
-    const toolsBox = document.getElementById("tools");
-    const meta = document.getElementById("meta");
     const chips = document.getElementById("chips");
-    const reject = document.getElementById("reject");
     let examples = { qa: [], reject: [], kb: [] };
 
     function corpus() {
@@ -192,23 +146,12 @@
       sources.innerHTML = "<p class='meta'>用到的资料</p>" + list.map((s) => {
         const text = (s.text || "").replaceAll("<", "&lt;");
         const title = (s.title || "").replaceAll("<", "&lt;");
-        const score = s.score ? ` · 分数 ${s.score}` : "";
-        return `<div class="src"><strong>${title}${score}</strong><div>${text}</div></div>`;
+        return `<div class="src"><strong>${title}</strong><div>${text}</div></div>`;
       }).join("");
     }
 
-    function renderGold(answers) {
-      if (answers && answers.length) {
-        gold.className = "gold";
-        gold.textContent = "RGB 公开参考答案：" + answers.join("；");
-      } else {
-        gold.className = "";
-        gold.textContent = "";
-      }
-    }
-
     function renderChips() {
-      const list = corpus() === "kb" ? examples.kb : (reject.checked ? examples.reject : examples.qa);
+      const list = corpus() === "kb" ? examples.kb : examples.qa;
       chips.innerHTML = "";
       list.forEach((item) => {
         const btn = document.createElement("button");
@@ -218,24 +161,6 @@
         btn.onclick = () => { q.value = item.query; };
         chips.appendChild(btn);
       });
-    }
-
-    async function loadStats() {
-      const res = await fetch("/api/stats");
-      const data = await res.json();
-      document.getElementById("s-docs").textContent = data.rgb_docs ?? "—";
-      document.getElementById("s-q").textContent = data.rgb_query_total ?? data.rgb_queries ?? "—";
-      const hit = data.metrics && data.metrics.hit && data.metrics.hit["1"];
-      document.getElementById("s-hit1").textContent = hit ? ((hit.rate * 100).toFixed(1) + "%") : "—";
-      document.getElementById("s-p95").textContent = data.metrics ? (Math.round(data.metrics.p95_latency_ms) + " ms") : "—";
-      const reject = data.reject_metrics;
-      document.getElementById("s-reject").textContent = reject
-        ? (reject.correct + "/" + reject.n)
-        : "—";
-      const toolEval = data.tool_metrics;
-      document.getElementById("s-tools").textContent = toolEval
-        ? (toolEval.correct + "/" + toolEval.n)
-        : "评测中";
     }
 
     async function loadExamples() {
@@ -255,15 +180,12 @@
       searchOnly.disabled = true;
       answer.className = "answer";
       answer.textContent = kind === "search" ? "正在检索…" : "正在检索并生成…";
-      gold.textContent = "";
-      toolsBox.innerHTML = "";
-      meta.textContent = "";
       sources.innerHTML = "";
       const payload = {
         question,
         corpus: corpus(),
         k: 5,
-        mode: reject.checked ? "reject" : "qa",
+        mode: "qa",
       };
       try {
         const res = await fetch(kind === "search" ? "/search" : "/ask", {
@@ -285,17 +207,6 @@
         } else {
           answer.textContent = data.answer || "没有生成文字。";
         }
-        renderGold(data.gold_answers);
-        const bits = [];
-        if (data.note) bits.push(data.note);
-        if (data.tools && data.tools.length) {
-          const names = data.tools.map((t) => t.name).filter(Boolean);
-          bits.push("工具 " + names.join(" / "));
-          toolsBox.innerHTML = names.map((name) => `<span class="tool-pill">${name}</span>`).join("");
-        }
-        if (data.latency_ms != null) bits.push("检索 " + data.latency_ms + " ms");
-        if (data.generate_ms) bits.push("生成 " + Math.round(data.generate_ms) + " ms");
-        meta.textContent = bits.join(" · ");
         renderSources(data.sources);
       } catch (e) {
         answer.className = "answer err";
@@ -307,10 +218,8 @@
     }
 
     document.querySelectorAll("input[name=corpus]").forEach((el) => el.addEventListener("change", renderChips));
-    reject.addEventListener("change", renderChips);
     go.onclick = () => run("ask");
     searchOnly.onclick = () => run("search");
-    loadStats().catch(() => {});
     loadExamples().catch(() => {});
   </script>
 </body>
